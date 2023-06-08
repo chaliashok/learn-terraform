@@ -4,6 +4,6 @@ resource "aws_instance" "frontend" {
   security_groups = ["allow_all"]   # Replace with your security group name
 
   tags = {
-    name = "frontend"
+    Name = "var.name"
   }
 }
