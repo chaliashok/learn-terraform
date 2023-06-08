@@ -1,5 +1,5 @@
 resource "aws_instance" "web" {
-  ami           = "ami-03265a0778a880afb"  # Replace with your desired AMI ID
+  ami           = data.aws_ami.example.id  # Replace with your desired AMI ID
   instance_type = "t3.small"                # Replace with your desired instance type
   vpc_security_group_ids = [aws_security_group.sg.id]
 
@@ -22,15 +22,20 @@ resource "aws_instance" "web" {
   }
 }
 
-resource "aws_route53_record" "example" {
+resource "aws_route53_record" "www" {
   zone_id = "Z0783442RLRP3KGA9XLU"
   name    = "${var.name}-dev"  # Replace with your desired subdomain
   type    = "A"
-  ttl     = "300"
+  ttl     = 30
   records = [aws_instance.web.private_ip]  # Replace with the IP address or target value
   allow_overwrite = true
 }
 
+data "aws_ami" "example" {
+  owners      = ["973714476881"]
+  most_recent = true
+  name_regex  = "Centos-8-DevOps-Practice"
+}
 resource "aws_security_group" "sg" {
   name        = var.name
   description = "Example security group created with Terraform"
