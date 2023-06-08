@@ -47,3 +47,15 @@ variable "cour_detail" {
     }
   }
 }
+
+output "course" {
+  value = "var.course"
+}
+
+output "courses" {
+  value = "var.courses"
+}
+
+output "cour_detail" {
+  value = "var.cour_detail"
+}
