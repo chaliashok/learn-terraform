@@ -41,7 +41,7 @@ variable "cour_detail" {
       Time = 10
     }
     aws = {
-      name = aws
+      name = "aws"
       batch = 90
       time = 11
     }
