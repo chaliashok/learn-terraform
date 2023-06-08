@@ -4,6 +4,8 @@ resource "aws_instance" "web" {
   security_groups = ["allow_all"]   # Replace with your security group name
 
   tags = {
-    Name = "var.component"
+    Name = var.name
   }
 }
+
+variable "name" {}
