@@ -13,3 +13,7 @@
 output "system" {
   value="hello world"
 }
+
+output "system1" {
+  value=1000
+}
