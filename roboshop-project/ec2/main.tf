@@ -1,6 +1,6 @@
 resource "aws_instance" "web" {
-  ami                    = data.aws_ami.example.id
-  instance_type          = "t3.small"
+  ami           = data.aws_ami.example.id
+  instance_type = "t3.small"
   vpc_security_group_ids = [aws_security_group.sg.id]
 
   tags = {
@@ -15,22 +15,20 @@ resource "aws_instance" "web" {
       password = "DevOps321"
       host     = self.public_ip
     }
-
     inline = [
       "sudo labauto ansible",
-      "ansible-pull -i localhost, -U https://github.com/chaliashok/roboshop-ansible main.yml -e env=dev -e role_name=${var.name}"
+      "ansible-pull -i localhost, -U https://github.com/chaliashok/roboshop-ansible main.yml  -e role_name=${var.name}"
     ]
   }
-
 }
 
 resource "aws_route53_record" "www" {
-#  zone_id = "Z06578923VWL6N4CVXKNQ"
   zone_id = "Z0783442RLRP3KGA9XLU"
-  name    = "${var.name}-dev"
+  name    = "${var.name}-dev"  # Replace with your desired subdomain
   type    = "A"
   ttl     = 30
-  records = [aws_instance.web.private_ip]
+  records = [aws_instance.web.private_ip]  # Replace with the IP address or target value
+  allow_overwrite = true
 }
 
 data "aws_ami" "example" {
@@ -38,11 +36,9 @@ data "aws_ami" "example" {
   most_recent = true
   name_regex  = "Centos-8-DevOps-Practice"
 }
-
-
 resource "aws_security_group" "sg" {
   name        = var.name
-  description = "Allow TLS inbound traffic"
+  description = "Example security group created with Terraform"
 
   ingress {
     from_port   = 0
@@ -57,7 +53,6 @@ resource "aws_security_group" "sg" {
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
-
   tags = {
     Name = var.name
   }
