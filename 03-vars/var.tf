@@ -62,6 +62,6 @@ output "cour_detail" {
 
 variable "env" {}
 output "env" {
-  value = "var.env"
+  value = var.env
 }
 
