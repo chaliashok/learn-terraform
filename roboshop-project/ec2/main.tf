@@ -7,4 +7,35 @@ resource "aws_instance" "web" {
   }
 }
 
+resource "aws_route53_record" "example" {
+  zone_id = "Z0783442RLRP3KGA9XLU"
+  name    = "${var.name}-dev"  # Replace with your desired subdomain
+  type    = "A"
+  ttl     = "300"
+  records = [aws_instance.web.private_ip]  # Replace with the IP address or target value
+  allow_overwrite = true
+}
+
+resource "aws_security_group" "sg" {
+  name        = var.name
+  description = "Example security group created with Terraform"
+
+  ingress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+  tags = {
+    Name = var.name
+  }
+}
+
 variable "name" {}
