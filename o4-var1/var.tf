@@ -5,10 +5,10 @@ variable "sample1" {
   default="hello world"
 }
 output "sample" {
-  value = "var.sample"
+  value = var.sample
 }
 output "sample1" {
-  value = "var.sample1"
+  value = var.sample1
 }
 output "sample-exe" {
   value = "value of sample - ${var.sample}"
