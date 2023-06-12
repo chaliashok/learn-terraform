@@ -1,10 +1,9 @@
-terraform {
-  backend "s3" {
+resource "aws_s3_bucket" "example" {
   bucket = "terraform-chakri"
-  key = "params/terraform.tfstate"
+ # key = "params/terraform.tfstate"
   region = "us-east-1"
   }
-}
+
 
 
 output "demo" {
