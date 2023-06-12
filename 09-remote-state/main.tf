@@ -6,6 +6,6 @@ resource "aws_s3_bucket" "example" {
 
 
 
-output "demo" {
+output "example" {
   value = "hellow world"
 }
